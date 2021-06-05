@@ -180,10 +180,18 @@ function App() {
                 Reset
               </button>
             </div>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
+            <pre>
+            <h2>Your dish:</h2>
+            {JSON.stringify(values, 0, 2)}</pre>
           </form>
         )}
       />
+      <div>
+        
+        
+
+          
+      </div>
     </main>
   );
 }
