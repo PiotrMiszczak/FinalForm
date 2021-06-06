@@ -1,34 +1,35 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
 
-
-
-
 const onSubmit = async (values) => {
-  values.no_of_slices && (values.no_of_slices=parseInt(values.no_of_slices))
-  values.slices_of_bread && (values.slices_of_bread=parseInt(values.slices_of_bread))
-  values.spiciness_scale && (values.spiciness_scale=parseInt(values.spiciness_scale))
-  values.diameter && (values.diameter=parseInt(values.diameter))
+  //TURNING VALUES INTO INTEGERS
+  values.no_of_slices && (values.no_of_slices = parseInt(values.no_of_slices));
+  values.slices_of_bread &&
+    (values.slices_of_bread = parseInt(values.slices_of_bread));
+  values.spiciness_scale &&
+    (values.spiciness_scale = parseInt(values.spiciness_scale));
+  values.diameter && (values.diameter = parseInt(values.diameter));
+
   const url = "https://frosty-wood-6558.getsandbox.com:443/dishes";
 
-const xhr = new XMLHttpRequest();
-xhr.open("POST", url);
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url);
 
-xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("Content-Type", "application/json");
 
-xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4) {
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
       console.log(`Status code: ${xhr.status}`);
-      console.log(`Your dish: ${xhr.response}`)
-      if(xhr.status==200){
-      alert(`Dish sent succesfully, for details see console`)}
-      else{
-        alert('Something went wrong, for details see console')
-      };
-   }};
+      console.log(`Your dish: ${xhr.response}`);
+      if (xhr.status === 200) {
+        alert(`Dish sent succesfully, for details see console`);
+      } else {
+        alert("Something went wrong, for details see console");
+      }
+    }
+  };
 
-
-xhr.send(JSON.stringify(values, 0, 2));
+  xhr.send(JSON.stringify(values, 0, 2));
 };
 
 const Condition = ({ when, is, children }) => (
@@ -38,7 +39,6 @@ const Condition = ({ when, is, children }) => (
 );
 
 const required = (value) => (value ? undefined : "Required");
-
 const mustBeNumber = (value) => (isNaN(value) ? "Must be a number" : undefined);
 const minValue = (min) => (value) =>
   isNaN(value) || value >= min ? undefined : `Should be at least ${min}`;
@@ -63,32 +63,60 @@ function App() {
             <Field name="name" validate={required}>
               {({ input, meta }) => (
                 <div>
-                  <label htmlFor='name' className='label'>Dish name:</label>
+                  <label htmlFor="name" className="label">
+                    Dish name:
+                  </label>
                   <input
-                  {...input}
+                    {...input}
                     type="text"
-                    id='name'
-                    className={meta.error && meta.touched ? " input input-alert" : 'input'}
+                    id="name"
+                    className={
+                      meta.error && meta.touched
+                        ? " input input-alert"
+                        : "input"
+                    }
                     placeholder="dish name"
                   />
-                  {meta.error && meta.touched && <span className='error'>{meta.error}</span>}
+                  {meta.error && meta.touched && (
+                    <span className="error">{meta.error}</span>
+                  )}
                 </div>
               )}
             </Field>
-
             <Field name="preparation_time" validate={required}>
               {({ input, meta }) => (
                 <div>
-                 <label htmlFor="preperation_time">Preperation time:</label>
-                 
-                 <input {...input} id="preperation_time" type="time" className={meta.error && meta.touched ? " input input-alert" : 'input'} name="preperation_time" step="2" />
-                  {meta.error && meta.touched && <span className='error'>{meta.error}</span>}
+                  <label htmlFor="preperation_time">Preperation time:</label>
+                  <input
+                    {...input}
+                    id="preperation_time"
+                    type="time"
+                    className={
+                      meta.error && meta.touched
+                        ? " input input-alert"
+                        : "input"
+                    }
+                    name="preperation_time"
+                    step="2"
+                  />
+                  {meta.error && meta.touched && (
+                    <span className="error">{meta.error}</span>
+                  )}
                 </div>
               )}
             </Field>
             <div>
-              <label htmlFor='type' className='label'>Dish type:</label>
-              <Field className={'input'} validate={required} id='type' name="type" component="select" initialValue='pizza'>
+              <label htmlFor="type" className="label">
+                Dish type:
+              </label>
+              <Field
+                className={"input"}
+                validate={required}
+                id="type"
+                name="type"
+                component="select"
+                initialValue="pizza"
+              >
                 <option value="pizza">Pizza</option>
                 <option value="soup">Soup</option>
                 <option value="sandwich">Sandwich</option>
@@ -107,52 +135,62 @@ function App() {
                   <div>
                     {delete values.spiciness_scale}
                     {delete values.slices_of_bread}
-                    <label htmlFor='no_of_slices' className='label'>Number of slices:</label>
+                    <label htmlFor="no_of_slices" className="label">
+                      Number of slices:
+                    </label>
                     <input
                       {...input}
                       type="number"
-                      id='no_of_slices'
-                      placeholder="Number of slices"
-                      
-                      className={meta.error && meta.touched ? " input input-alert" : 'input'}
+                      id="no_of_slices"
+                      placeholder="number of slices"
+                      className={
+                        meta.error && meta.touched
+                          ? " input input-alert"
+                          : "input"
+                      }
                     />
-                    {meta.error && meta.touched && <span className='error'>{meta.error}</span>}
+                    {meta.error && meta.touched && (
+                      <span className="error">{meta.error}</span>
+                    )}
                   </div>
                 )}
               </Field>
               <div>
-              <label htmlFor='diameter' className='label'>Diameter:  <b>{values.diameter}</b></label>
-              <Field
-                name="diameter"
-                id='diameter'
-                component="input"
-                className="input-range"
-                type="range"
-                min={20}
-                max={40}
-                initialValue={30}
-              />
+                <label htmlFor="diameter" className="label">
+                  Diameter (cm): <b>{values.diameter}</b>
+                </label>
+                <Field
+                  name="diameter"
+                  id="diameter"
+                  component="input"
+                  className="input-range"
+                  type="range"
+                  min={20}
+                  max={40}
+                  initialValue={30}
+                />
               </div>
             </Condition>
             <Condition when="type" is="soup">
               <div>
-              <label htmlFor='spiciness_scale' className='label'>Spiciness level:  <b>{values.spiciness_scale}</b></label>
-              <Field
-                name="spiciness_scale"
-                id='spiciness_scale'
-                component="input"
-                className='input-range'
-                type="range"
-                min={1}
-                max={10}
-                initialValue={5}
-              />
+                <label htmlFor="spiciness_scale" className="label">
+                  Spiciness level: <b>{values.spiciness_scale}</b>
+                </label>
+                <Field
+                  name="spiciness_scale"
+                  id="spiciness_scale"
+                  component="input"
+                  className="input-range"
+                  type="range"
+                  min={1}
+                  max={10}
+                  initialValue={5}
+                />
               </div>
               {values.spiciness_scale &&
                 delete values.no_of_slices &&
                 delete values.diameter &&
                 delete values.slices_of_bread}
-
             </Condition>
             <Condition when="type" is="sandwich">
               <Field
@@ -169,46 +207,53 @@ function App() {
                     {delete values.diameter}
                     {delete values.no_of_slices}
                     {delete values.spiciness_scale}
-                    <label htmlFor='slices_of_bread' className='label'>Number of slices</label>
+                    <label htmlFor="slices_of_bread" className="label">
+                      Number of slices
+                    </label>
                     <input
                       {...input}
                       type="number"
-                      id='slices_of_bread'
+                      id="slices_of_bread"
                       placeholder="number of slices"
                       initialValue={1}
-                      className={meta.error && meta.touched ? " input input-alert" : 'input'}
+                      className={
+                        meta.error && meta.touched
+                          ? " input input-alert"
+                          : "input"
+                      }
                     />
-                    {meta.error && meta.touched && <span className='error'>{meta.error}</span>}
+                    {meta.error && meta.touched && (
+                      <span className="error">{meta.error}</span>
+                    )}
                   </div>
                 )}
               </Field>
             </Condition>
-
             <div className="buttons">
-              <button className='button button-submit' type="submit" disabled={submitting}>
+              <button
+                className="button button-submit"
+                type="submit"
+                disabled={submitting}
+              >
                 Submit
               </button>
               <button
                 type="button"
                 onClick={form.reset}
                 disabled={submitting || pristine}
-                className='button button-reset'
+                className="button button-reset"
               >
                 Reset
               </button>
             </div>
             <pre>
-            <h2>Your dish:</h2>
-            {JSON.stringify(values, 0, 2)}</pre>
+              <h2>Your dish:</h2>
+              {JSON.stringify(values, 0, 2)}
+            </pre>
           </form>
         )}
       />
-      <div>
-        
-        
-
-          
-      </div>
+      <div></div>
     </main>
   );
 }
