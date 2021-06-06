@@ -18,8 +18,13 @@ xhr.setRequestHeader("Content-Type", "application/json");
 
 xhr.onreadystatechange = function () {
    if (xhr.readyState === 4) {
-      console.log(xhr.status);
-      alert(xhr.responseText);
+      console.log(`Status code: ${xhr.status}`);
+      console.log(`Your dish: ${xhr.response}`)
+      if(xhr.status==200){
+      alert(`Dish sent succesfully, for details see console`)}
+      else{
+        alert('Something went wrong, for details see console')
+      };
    }};
 
 
@@ -116,12 +121,12 @@ function App() {
                 )}
               </Field>
               <div>
-              <label htmlFor='diameter' className='label'>Diameter:  {values.diameter}</label>
+              <label htmlFor='diameter' className='label'>Diameter:  <b>{values.diameter}</b></label>
               <Field
                 name="diameter"
                 id='diameter'
                 component="input"
-                className="input inpur-range"
+                className="input-range"
                 type="range"
                 min={20}
                 max={40}
@@ -131,12 +136,12 @@ function App() {
             </Condition>
             <Condition when="type" is="soup">
               <div>
-              <label htmlFor='spiciness_scale' className='label'>Spiciness level:  {values.spiciness_scale}</label>
+              <label htmlFor='spiciness_scale' className='label'>Spiciness level:  <b>{values.spiciness_scale}</b></label>
               <Field
                 name="spiciness_scale"
                 id='spiciness_scale'
                 component="input"
-                className='input input-range'
+                className='input-range'
                 type="range"
                 min={1}
                 max={10}
@@ -180,7 +185,7 @@ function App() {
             </Condition>
 
             <div className="buttons">
-              <button className='button button-submit' type="submit" disabled={submitting || pristine}>
+              <button className='button button-submit' type="submit" disabled={submitting}>
                 Submit
               </button>
               <button
