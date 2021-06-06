@@ -3,6 +3,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [React Final Form](https://final-form.org/react) (superior library to redux form) was used for handling form functionality.
 
+To install all dependencies run command `npm install`. After installation run `npm start` to start app.
+
 ## Available Scripts
 
 In the project directory, you can run:
